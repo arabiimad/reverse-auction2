@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<table>
+  {% for a in auctions %}
+    <tr>
+      <td>{{ a.product.name }}</td>
+      <td>{{ a.endAt|date('d/m H:i') }}</td>
+      {# lien vers la route bids_show #}
+      <td><a href="{{ path('bids_show', { id: a.id }) }}">Voir / Miser</a></td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

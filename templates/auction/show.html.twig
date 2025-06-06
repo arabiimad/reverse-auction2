@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h2>{{ auction.product.name }}</h2>
+
+{# le formulaire Symfony généré depuis BidType #}
+{{ form_start(form, { action: path('bids_show', { id: auction.id }) }) }}
+    {{ form_row(form.priceCents) }}
+    <button class="btn btn-primary">Miser ({{ auction.bidCost }} jetons)</button>
+{{ form_end(form) }}
+{% endblock %}

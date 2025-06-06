@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acheter des jetons{% endblock %}
+
+{% block body %}
+    <h1>Acheter des jetons</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.pack) }}
+        <button type="submit" class="btn btn-primary">Acheter</button>
+    {{ form_end(form) }}
+{% endblock %}

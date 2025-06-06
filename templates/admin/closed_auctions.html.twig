@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enchères clôturées{% endblock %}
+
+{% block body %}
+    <h1>🗃️ Enchères clôturées</h1>
+
+    <table border="1" cellpadding="8">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Clôture</th>
+                <th>Statut</th>
+                <th>Gagnant</th>
+                <th>Paiement</th>
+                <th>Livraison</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in auctions %}
+                <tr>
+                    <td>{{ a.product.name }}</td>
+                    <td>{{ a.endAt|date('d/m/Y H:i') }}</td>
+                    <td>{{ a.status }}</td>
+                    <td>
+                        {% if a.winnerBid %}
+                            {{ a.winnerBid.user.email }} ({{ a.winnerBid.priceCents / 100 }} €)
+                        {% else %}
+                            ❌ Aucun gagnant
+                        {% endif %}
+                    </td>
+                    <td>{{ a.paymentReceived ? '✅' : '❌' }}</td>
+                    <td>{{ a.productDelivered ? '📦 Livré' : '⏳ En attente' }}</td>
+                </tr>
+            {% else %}
+                <tr><td colspan="6">Aucune enchère clôturée</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

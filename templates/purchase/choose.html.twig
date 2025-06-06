@@ -1,0 +1,22 @@
+{# templates/purchase/choose.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Choix du pack{% endblock %}
+
+{% block body %}
+<div class="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+  <h1 class="text-xl font-bold mb-4">Choisissez un pack de jetons</h1>
+
+  {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="mb-4">
+      {{ form_row(form.tokenPack) }}
+      {{ form_errors(form.tokenPack) }}
+    </div>
+
+    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+      Suivant
+    </button>
+  {{ form_end(form) }}
+</div>
+{% endblock %}

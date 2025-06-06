@@ -1,0 +1,86 @@
+{# templates/dashboard/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+  <div class="max-w-4xl mx-auto mt-8 space-y-8">
+
+    {# --- Solde --- #}
+    <div class="p-4 bg-yellow-100 rounded">
+      <strong>💰 Solde actuel :</strong> {{ wallet.balance }} jetons
+    </div>
+
+    {# --- Achats de jetons --- #}
+    <div class="p-6 bg-white rounded shadow">
+      <h2 class="text-lg font-semibold mb-2">📦 Achats de jetons</h2>
+      {% if purchases is empty %}
+        <p>Aucun achat trouvé</p>
+      {% else %}
+        <ul class="list-disc list-inside">
+          {% for purchase in purchases %}
+            <li>
+              {{ purchase.tokenPack.label }} –
+              <small>{{ purchase.createdAt|date('d/m/Y H:i') }}</small>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {# Lien corrigé vers la route d’étape 1 #}
+      <a href="{{ path('purchase_choose') }}" class="text-blue-600 hover:underline mt-2 inline-block">
+        🛒 Acheter des jetons
+      </a>
+    </div>
+
+    {# --- Enchères en cours --- #}
+    <div class="p-6 bg-white rounded shadow">
+      <h2 class="text-lg font-semibold mb-2">🔨 Enchères en cours</h2>
+      {% if openAuctions is empty %}
+        <p>Aucune enchère ouverte</p>
+      {% else %}
+        <ul class="list-disc list-inside">
+          {% for auction in openAuctions %}
+            <li>
+              {{ auction.product.name }}
+              (clôture {{ auction.endAt|date('d/m H:i') }}) –
+              <a href="{{ path('bids_show', { id: auction.id }) }}" class="text-blue-600 hover:underline">
+                Voir / Miser
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+
+    {# --- Historique des transactions --- #}
+    <div class="p-6 bg-white rounded shadow">
+      <h2 class="text-lg font-semibold mb-2">📜 Historique des transactions</h2>
+      {% if transactions is empty %}
+        <p>Aucune transaction enregistrée.</p>
+      {% else %}
+        <table class="w-full text-left">
+          <thead>
+            <tr>
+              <th>Date</th><th>Type</th><th>Montant</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for tx in transactions %}
+              <tr>
+                <td>{{ tx.createdAt|date('d/m/Y H:i') }}</td>
+                <td>{{ tx.type }}</td>
+                <td class="{{ tx.amount > 0 ? 'text-green-600' : 'text-red-600' }}">
+                  {{ tx.amount > 0 ? '+' : '' }}{{ tx.amount }} jetons
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+      <a href="{{ path('bids_user') }}" class="text-purple-600 hover:underline mt-2 inline-block">
+        📌 Voir mes mises
+      </a>
+    </div>
+
+  </div>
+{% endblock %}

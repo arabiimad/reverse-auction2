@@ -1,0 +1,13 @@
+/* assets/styles/app.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optionnel : pour vérifier si ça compile bien */
+body::before {
+  content: "Tailwind chargé ✔️";
+  display: block;
+  color: green;
+  font-weight: bold;
+  padding: 1rem;
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Reverse Auction{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block stylesheets %}
+        <script src="https://cdn.tailwindcss.com"></script>
+    {% endblock %}
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800">
+    <nav class="bg-gray-900 text-white px-6 py-4 flex justify-between items-center">
+        <div class="text-lg font-semibold">
+            Reverse Auction
+        </div>
+        <div class="space-x-4">
+            {% if app.user %}
+                <a href="{{ path('dashboard') }}" class="hover:text-yellow-400 transition">Tableau de bord</a>
+                <a href="{{ path('app_logout') }}" class="hover:text-red-400 transition">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_login') }}" class="hover:text-green-400 transition">Connexion</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="container mx-auto py-8 px-4">
+        {% block body %}{% endblock %}
+    </main>
+</body>
+</html>
